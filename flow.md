@@ -3,7 +3,7 @@
 ### Bước 1: Phân tích & Phân rã ranh giới (Discovery & Scoping)
 - **Hành động:** 
   + Thu thập yêu cầu từ Stakeholders.
-  + **[Bổ sung]** Phân rã dự án theo từng giai đoạn (Phase). Xác định rõ ranh giới của bản phát hành đầu tiên (MVP) để tránh sa lầy (Ví dụ: Ưu tiên luồng Đăng ký học phần).
+  + Phân rã dự án theo từng giai đoạn (Phase). Xác định rõ ranh giới của bản phát hành đầu tiên (MVP) để tránh sa lầy (Ví dụ: Ưu tiên luồng Đăng ký học phần).
   + Định nghĩa Functional Requirements (FR) và Non-Functional Requirements (NFR).
 - **Đầu ra:** 
   + Tài liệu SRS & Danh sách Feature đã phân độ ưu tiên.
@@ -21,7 +21,7 @@
 ### Bước 1: Phân tích & Phân rã ranh giới (Discovery & Scoping)
 - **Hành động:** 
   + Thu thập yêu cầu từ Stakeholders.
-  + **[Bổ sung]** Phân rã dự án theo từng giai đoạn (Phase). Xác định rõ ranh giới của bản phát hành đầu tiên (MVP) để tránh sa lầy (Ví dụ: Ưu tiên luồng Đăng ký học phần).
+  + Phân rã dự án theo từng giai đoạn (Phase). Xác định rõ ranh giới của bản phát hành đầu tiên (MVP) để tránh sa lầy (Ví dụ: Ưu tiên luồng Đăng ký học phần).
   + Định nghĩa Functional Requirements (FR) và Non-Functional Requirements (NFR).
 - **Đầu ra:** 
   + Tài liệu SRS & Danh sách Feature đã phân độ ưu tiên.
@@ -31,8 +31,8 @@
 *Đây là bước sống còn để đảm bảo hệ thống chịu được tải 100.000 user mà không phải đập đi làm lại.*
 - **Hành động & Yêu cầu:** 
   + Vẽ Data Flow Diagram (DFD) để chốt luồng dữ liệu nghiệp vụ.
-  + **[Bổ sung] Vẽ System Architecture Diagram (High-Level Design):** Chốt hạ tầng máy chủ, Load Balancer, Cache (Redis), Message Queue (RabbitMQ).
-  + **[Bổ sung] Vẽ Sequence Diagram:** Mô tả chi tiết thứ tự thời gian xử lý của các luồng phức tạp nhằm phát hiện sớm Race Condition.
+  + Vẽ System Architecture Diagram (High-Level Design): Chốt hạ tầng máy chủ, Load Balancer, Cache (Redis), Message Queue (RabbitMQ).
+  + Mô tả chi tiết thứ tự thời gian xử lý của các luồng phức tạp nhằm phát hiện sớm Race Condition.
   + Lựa chọn Tech Stack kèm tài liệu đánh giá (ADR).
   + Thiết kế Database Schema (ERD).
   + Thiết kế API Contract (Swagger/OpenAPI): Định nghĩa toàn bộ endpoint, payload, error code.
@@ -62,8 +62,8 @@
 ---
 
 Với quy trình chuẩn chỉnh này, chúng ta đã hoàn tất phần phương pháp luận. Bạn đã sẵn sàng để tôi triển khai **Bước 2 (Vẽ System Architecture Diagram và Lựa chọn Tech Stack)** cho dự án Hệ thống quản lý học phần này chưa?
-  + **[Bổ sung] Vẽ System Architecture Diagram (High-Level Design):** Chốt hạ tầng máy chủ, Load Balancer, Cache (Redis), Message Queue (RabbitMQ).
-  + **[Bổ sung] Vẽ Sequence Diagram:** Mô tả chi tiết thứ tự thời gian xử lý của các luồng phức tạp nhằm phát hiện sớm Race Condition.
+  + Vẽ System Architecture Diagram (High-Level Design):** Chốt hạ tầng máy chủ, Load Balancer, Cache (Redis), Message Queue (RabbitMQ).
+  + Mô tả chi tiết thứ tự thời gian xử lý của các luồng phức tạp nhằm phát hiện sớm Race Condition.
   + Lựa chọn Tech Stack kèm tài liệu đánh giá (ADR).
   + Thiết kế Database Schema (ERD).
   + Thiết kế API Contract (Swagger/OpenAPI): Định nghĩa toàn bộ endpoint, payload, error code.
