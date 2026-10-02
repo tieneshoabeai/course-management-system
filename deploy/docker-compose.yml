@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # 1. PostgreSQL (Tích hợp sẵn pgvector phục vụ RAG AI)
+  postgres:
+    image: ankane/pgvector:v0.5.1
+    container_name: cms_postgres
+    restart: unless-stopped
+    environment:
+      # Đọc biến môi trường, nếu không có sẽ dùng giá trị mặc định (Local Dev)
+      POSTGRES_USER: ${DB_USER:-cms_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-cms_password}
+      POSTGRES_DB: ${DB_NAME:-cms_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. Redis (Phục vụ Caching và Rate Limiting chống sập hệ thống)
+  redis:
+    image: redis:7-alpine
+    container_name: cms_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # 3. RabbitMQ (Hàng đợi bất đồng bộ xử lý đăng ký tín chỉ)
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine # Bản management chứa sẵn giao diện Web UI
+    container_name: cms_rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RMQ_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RMQ_PASS:-guest}
+    ports:
+      - "5672:5672"   # Cổng giao tiếp chuẩn AMQP cho code Backend
+      - "15672:15672" # Cổng giao diện quản trị Web UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  # 4. MinIO (Lưu trữ ảnh khuôn mặt và tài liệu PDF)
+  minio:
+    image: minio/minio:latest
+    container_name: cms_minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_USER:-admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD:-admin12345}
+    ports:
+      - "9000:9000" # Cổng gọi API tương đương Amazon S3
+      - "9001:9001" # Cổng giao diện quản trị Web UI
+    volumes:
+      - minio_data:/data
+
+# Khai báo Volumes để dữ liệu không bị mất khi xóa Container
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:
+  minio_data:

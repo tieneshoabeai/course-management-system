@@ -1,0 +1,34 @@
+name: AI Inference CI (Python)
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+    paths:
+      - 'ai_inference/**'
+  pull_request:
+    branches: [ "main", "dev" ]
+    paths:
+      - 'ai_inference/**'
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ai_inference
+        
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' # Python version ổn định nhất cho AI/FastAPI
+
+      # Tạm thời comment lại. Bỏ comment khi khởi tạo xong môi trường FastAPI.
+      # - name: Cài đặt thư viện AI
+      #   run: pip install -r requirements.txt
+      
+      # - name: Chạy test
+      #   run: pytest

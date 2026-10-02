@@ -3,72 +3,65 @@
 ## 1. Tổng Quan Dự Án (Project Overview)
 Hệ thống Quản lý Học phần là nền tảng phần mềm cấp doanh nghiệp (enterprise-grade) được thiết kế nhằm số hóa và tối ưu hóa quy trình quản lý đào tạo và đăng ký tín chỉ tại các cơ sở giáo dục đại học.
 
-Mục đích cốt lõi của dự án là giải quyết bài toán nghẽn cổ chai hệ thống trong các đợt đăng ký tín chỉ cao điểm, phục vụ quy mô lên đến 100.000 sinh viên. Hệ thống được thiết kế để đảm bảo tính sẵn sàng cao (High Availability), tính nhất quán dữ liệu tuyệt đối (Strict Data Consistency), và ngăn chặn hoàn toàn rủi ro đăng ký vượt quá sĩ số lớp học (Overbooking) dưới áp lực tải đột biến.
+Mục đích cốt lõi của dự án là giải quyết bài toán nghẽn cổ chai hệ thống trong các đợt đăng ký tín chỉ cao điểm, phục vụ quy mô lên đến 100.000 sinh viên. Hệ thống được thiết kế để đảm bảo tính sẵn sàng cao (High Availability), tính nhất quán dữ liệu tuyệt đối (Strict Data Consistency), và tích hợp Trí tuệ nhân tạo (AI) để nâng cao tự động hóa và trải nghiệm người dùng.
 
 ## 2. Phân Hệ Chức Năng Cốt Lõi (Core Modules)
-- **Phân hệ Sinh viên (Student Portal):** Hỗ trợ tra cứu danh mục môn học theo thời gian thực, xử lý giao dịch đăng ký/hủy học phần, và quản lý lịch học cá nhân.
-- **Phân hệ Quản trị (Administration Console):** Quản lý Master Data (Chương trình đào tạo, Môn học, Lớp học, Tài khoản), thiết lập cấu hình đợt đăng ký, và giám sát tài nguyên hệ thống.
-- **Phân hệ Giảng viên (Faculty Portal):** Cung cấp công cụ theo dõi lịch giảng dạy và trích xuất danh sách sinh viên.
+- **Phân hệ Sinh viên (Student Portal):** Đăng ký/hủy học phần, tra cứu lịch học.
+- **Phân hệ Quản trị (Administration Console):** Quản lý Master Data (Chương trình đào tạo, Môn học, Lớp học, Tài khoản), cấu hình đợt đăng ký, giám sát tải hệ thống.
+- **Phân hệ Giảng viên (Faculty Portal):** Theo dõi lịch giảng dạy và danh sách sinh viên.
+- **Hệ thống AI (AI Inference):** 
+  - **Xác thực khuôn mặt (Face Login):** Xác thực định danh sinh viên theo thời gian thực.
+  - **Trợ lý tìm kiếm (RAG Search):** Truy vấn thông tin môn học và quy chế đào tạo dựa trên LLM và cơ sở dữ liệu Vector.
 
-## 3. Kiến Trúc Hệ Thống (System Architecture)
-Dự án áp dụng tiêu chuẩn API-First Design và Kiến trúc Hướng sự kiện (Event-Driven Architecture) nhằm tách biệt các luồng xử lý và nâng cao khả năng chịu tải.
+## 3. Kiến Trúc Hệ Thống (Polyglot Monorepo)
+Dự án áp dụng tiêu chuẩn API-First Design và Kiến trúc Hướng sự kiện (Event-Driven Architecture), tổ chức theo mô hình Monorepo Đa ngôn ngữ nhằm tách biệt các luồng xử lý và tối ưu hóa tài nguyên.
 
-### 3.1. Ngăn Xếp Công Nghệ (Technology Stack)
-- **Application Framework:** Node.js với NestJS (sử dụng TypeScript để đảm bảo tính chặt chẽ của kiểu dữ liệu).
-- **Relational Database:** PostgreSQL (Đảm bảo tính tuân thủ ACID cho các giao dịch đăng ký học phần).
-- **In-Memory Cache:** Redis (Tối ưu hóa thời gian truy xuất danh sách môn học và xử lý giới hạn tốc độ - Rate Limiting).
-- **Message Broker:** RabbitMQ (Quản lý hàng đợi bất đồng bộ cho các yêu cầu đăng ký, bảo vệ Database khỏi tình trạng quá tải).
-- **Containerization:** Docker và Docker Compose.
+### 3.1. Cấu trúc thư mục
+```text
+.
+├── ai_inference/       # AI Service (Python / FastAPI) xử lý Face Login & RAG
+├── backend/            # Core API Service (Node.js / NestJS)
+├── deploy/             # Chứa hạ tầng Docker Compose cục bộ
+├── docs/               # Tài liệu thiết kế hệ thống và luồng nghiệp vụ
+├── frontend/           # Web App (React Vite) & Mobile App (React Native)
+├── test/               # Kịch bản kiểm thử tải (Load test) với k6
+└── .github/workflows/  # CI/CD Pipelines theo cơ chế Path Filtering
+```
 
-### 3.2. Yêu Cầu Phi Chức Năng (Non-Functional Requirements)
-- **Khả năng mở rộng (Scalability):** Có khả năng xử lý từ 20.000 đến 30.000 người dùng đồng thời (CCU) trong 15-30 phút đầu tiên của đợt đăng ký.
-- **Tính nhất quán (Consistency):** Áp dụng cơ chế khóa dữ liệu (Locking mechanisms) nghiêm ngặt để đảm bảo số lượng đăng ký không vượt quá sức chứa cấu hình của lớp học phần.
+### 3.2. Ngăn Xếp Công Nghệ (Technology Stack)
+- **Backend Framework:** Node.js với NestJS (TypeScript).
+- **Frontend Framework:** React (Web) và React Native (Mobile).
+- **AI Inference:** Python (FastAPI, Langchain, OpenCV/InsightFace).
+- **Relational & Vector DB:** PostgreSQL tích hợp extension `pgvector`.
+- **In-Memory Cache:** Redis (Tối ưu truy xuất & Rate Limiting).
+- **Message Broker:** RabbitMQ (Xử lý hàng đợi bất đồng bộ chống Overbooking).
+- **Object Storage:** MinIO (Lưu trữ ảnh khuôn mặt và tài liệu, S3-compatible).
 
 ## 4. Hướng Dẫn Cài Đặt (Local Environment Setup)
 
 ### 4.1. Yêu cầu hệ thống
-Đảm bảo máy chủ hoặc môi trường phát triển đã cài đặt:
-- Node.js (v18.x hoặc mới hơn)
 - Docker Engine & Docker Compose
-- Node Package Manager (npm hoặc yarn)
+- Node.js (v18.x hoặc mới hơn)
+- Python (v3.10 hoặc mới hơn)
 
-### 4.2. Các bước triển khai
-1. Tải mã nguồn và cài đặt các thư viện phụ thuộc:
-   ```bash
-   npm install
-   ```
+### 4.2. Khởi tạo hạ tầng (Infrastructure)
+Hạ tầng cơ sở dữ liệu được đóng gói toàn bộ qua Docker.
+```bash
+cd deploy
+docker-compose up -d
+```
 
-2. Khởi tạo hạ tầng dịch vụ (PostgreSQL, Redis, RabbitMQ):
-   ```bash
-   docker-compose up -d
-   ```
+### 4.3. Thiết lập biến môi trường (.env)
+> **LƯU Ý QUAN TRỌNG:** Dự án tuân thủ nguyên tắc cô lập ranh giới (Security Boundaries). **Tuyệt đối không sử dụng file `.env` chung ở cấp Root.**
 
-3. Cấu hình biến môi trường:
-   ```bash
-   cp .env.example .env
-   ```
+Lập trình viên cần tạo file `.env` độc lập bên trong từng thư mục service (`backend/`, `frontend/`, `ai_inference/`) theo cấu trúc mẫu do từng team quy định.
 
-4. Chạy kịch bản di chuyển dữ liệu (Database Migration) để tạo lược đồ cơ sở dữ liệu:
-   ```bash
-   npm run db:migrate
-   ```
+### 4.4. Khởi động các Service
+Mỗi service hoạt động hoàn toàn độc lập. Lập trình viên di chuyển vào thư mục tương ứng và khởi chạy theo chuẩn của Framework đó (Ví dụ: `npm run start:dev` đối với Backend, `fastapi dev` đối với AI).
 
-5. Khởi động ứng dụng Backend trong môi trường phát triển:
-   ```bash
-   npm run start:dev
-   ```
-
-## 5. Tài Liệu Giao Tiếp (API Documentation)
-Giao kèo API (API Contract) của hệ thống được chuẩn hóa theo định dạng OpenAPI (Swagger). Sau khi ứng dụng khởi động thành công, tài liệu có thể được truy cập tại:
-http://localhost:3000/uth/api/docs
+## 5. Quy trình CI/CD
+Hệ thống CI/CD được cấu hình bằng Github Actions áp dụng chiến lược **Path Filtering**. 
+Mỗi khi có commit đẩy lên nhánh `main` hoặc `dev`, hệ thống chỉ kích hoạt pipeline test và build tương ứng cho thư mục có sự thay đổi (Backend, Frontend, hoặc AI), đảm bảo tính độc lập và tiết kiệm tài nguyên máy chủ CI.
 
 ## 6. Kiểm Thử (Testing)
-Hệ thống cung cấp sẵn các kịch bản kiểm thử tự động:
-- Kiểm thử luồng xử lý (Unit/Integration Test):
-  ```bash
-  npm run test
-  ```
-- Kiểm thử khả năng chịu tải (Load/Stress Test - yêu cầu thư viện k6):
-  ```bash
-  k6 run tests/load/registration.js
-  ```
+Hệ thống cung cấp sẵn các kịch bản kiểm thử tải (Load/Stress Test) nằm trong thư mục `test/`, sử dụng công cụ **k6** để giả lập luồng 30.000 sinh viên đồng thời (CCU).

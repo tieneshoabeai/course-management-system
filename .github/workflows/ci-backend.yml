@@ -1,0 +1,36 @@
+name: Backend CI (NestJS)
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+    paths:
+      - 'backend/**' # Path Filtering: Chỉ chạy khi có thay đổi trong thư mục backend
+  pull_request:
+    branches: [ "main", "dev" ]
+    paths:
+      - 'backend/**'
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    # Thiết lập thư mục gốc cho toàn bộ các lệnh bên dưới
+    defaults:
+      run:
+        working-directory: ./backend
+        
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # NestJS thường chạy ổn định trên Node 18+
+
+      # Tạm thời comment lại vì thư mục backend đang rỗng. 
+      # Hãy bỏ comment khi bạn đã setup xong NestJS.
+      # - name: Cài đặt thư viện
+      #   run: npm ci
+      
+      # - name: Chạy Unit Test
+      #   run: npm run test
