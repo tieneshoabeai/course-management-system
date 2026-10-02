@@ -1,5 +1,3 @@
----
-
 ### Bước 1: Phân tích & Phân rã ranh giới (Discovery & Scoping)
 - **Hành động:** 
   + Thu thập yêu cầu từ Stakeholders.
