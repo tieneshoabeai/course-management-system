@@ -22,16 +22,16 @@
   + **Backend:** Thiết kế hệ thống, cấu trúc thư mục,..v.v. Code logic nghiệp vụ bám sát theo đúng DFD và API ở Bước 2.
 
 ### Phần 4: Tích hợp & Kiểm thử (Integration & Testing) 
-- **Hành động:** 
+- **Yêu cầu:** 
   + Đẩy code lên Git, kích hoạt hệ thống **CI (Continuous Integration)** tự động chạy Unit Test và Integration Test.
   + Frontend thay thế Mock API bằng Real API của Backend trên môi trường Staging.
   + **Load Testing:** Sử dụng k6 hoặc K8s giả lập khoảng 10.000 user cùng lúc đập vào luồng Đăng ký học phần (hoặc các tính năng có lượng truy cập cao tương tự) để kiểm tra xem cấu trúc Queue và Cache ở Bước 2 có hoạt động đúng không.
-- **Đầu ra:** Ứng dụng chạy trơn tru trên Staging, có báo cáo chịu tải đạt chuẩn NFR.
+- **Kết quả:** Ứng dụng chạy trơn tru trên Staging, có báo cáo chịu tải đạt chuẩn NFR.
 
 ### Phần 5: Triển khai & Giám sát (Deployment & Observability)
-- **Hành động:** 
+- **Yêu cầu:** 
   + **CD (Continuous Deployment):** Triển khai tự động lên Production với phương pháp Zero-Downtime (nếu nhóm mình muốn triển khai)
   + Gắn các công cụ **APM (Application Performance Monitoring)** như Grafana, Datadog để giám sát CPU, RAM, Database Lock, và API Latency theo thời gian thực.
-- **Đầu ra:** Hệ thống Live an toàn, có khả năng tự động cảnh báo (Alert) trước khi sập.
+- **Kết quả:** Hệ thống Live an toàn, có khả năng tự động cảnh báo (Alert) trước khi sập.
 
 ---
