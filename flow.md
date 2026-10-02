@@ -1,5 +1,5 @@
 ### Phần 1: Phân tích & Phân rã ranh giới (Discovery & Scoping)
-- **Hành động:** 
+- **Tìm hiểu:** 
   + Các thành viên vào trang portal và tìm hiểu các tính năng của trang và liệt kê theo từng module
   + Định nghĩa Functional Requirements (FR) và Non-Functional Requirements (NFR).
 - **Sau đó viết:**
