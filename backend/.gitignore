@@ -1,0 +1,50 @@
+# Node.js / NestJS compiled output
+/dist
+/node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing & Coverage
+/coverage
+/.nyc_output
+.jest-test-results.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Environment Variables & Secrets (Bảo mật tuyệt đối)
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+*.cert
+
+# Caches & Build files
+.eslintcache
+.tsbuildinfo
+.npm/
+.pnpm-store/
+
+# Temporary uploaded files (Dữ liệu rác sinh ra trong quá trình xử lý ảnh/PDF trước khi đẩy lên MinIO)
+/uploads
+/tmp
+/temp
