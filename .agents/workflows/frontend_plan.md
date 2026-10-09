@@ -5,13 +5,6 @@ Sau khi đã hoàn thành xong phần 1 và phần 2 trong flow_plan_overview. M
 - Cấu hình ESLint, Prettier, và thư viện UI (TailwindCSS / Material-UI).
 - Thiết lập hệ thống Router và thư viện State Management (Zustand hoặc Redux).
 
-### Điều chỉnh triển khai hiện tại
-- Do môi trường máy hiện tại không tương thích để chạy bản app mobile Expo/React Native ổn định, frontend được chuyển hướng sang bản web React Vite riêng tại `frontend/frontend_web`.
-- Bản mobile trong `frontend/frontend_app` được giữ lại, không ghi đè, để tránh mất phần đã dựng.
-- Stack web đã chốt: React + Vite + TypeScript, React Router DOM, Zustand, TanStack Query, React Hook Form + Zod, TailwindCSS + MUI.
-- Auth hiện tại là mock theo role `student`, `lecturer`, `admin`; chưa thay thế bằng API thật.
-- Face Login hiện tại là mock UI; chưa xin quyền camera, chưa chụp ảnh, chưa gọi backend AI verify.
-
 ## 2. Tích hợp Mock API (Mở khóa lập trình)
 - Trích xuất file giao kèo Swagger (từ Phần 2) đưa vào các công cụ như Postman hoặc Prism để dựng Mock Server.
 - Cấu hình Axios/Fetch trỏ vào Mock Server để lấy dữ liệu JSON tĩnh. Việc này giúp Frontend code giao diện ngay lập tức mà không cần đợi Backend.
@@ -22,19 +15,7 @@ Sau khi đã hoàn thành xong phần 1 và phần 2 trong flow_plan_overview. M
 - Dựng trang Portal Sinh viên: Màn hình tra cứu môn học, thời khóa biểu, công nợ.
 - Dựng trang Đăng ký tín chỉ: Thiết kế giao diện chịu tải (Hiển thị trạng thái Loading, Hàng đợi khi gửi request vào lúc cao điểm).
 
-### Phạm vi web mock trước
-- Dựng route `/auth/welcome`, `/auth/login`, `/auth/face-login`, `/student`, `/lecturer`, `/admin`.
-- Dựng login mock bằng form chọn role để kiểm tra routing và dashboard theo vai trò.
-- Dựng Face Login ở mức mock UI trước. WebRTC camera thật sẽ làm sau khi xác nhận thêm vì có tác động đến quyền browser, xử lý lỗi thiết bị và contract gửi ảnh lên backend.
-- Dựng dashboard mock ban đầu cho Student, Lecturer và Admin để kiểm tra layout web.
-
 ## 4. Tích hợp API thật & Tối ưu (Integration)
 - Thay đổi cấu hình `.env` để trỏ URL từ Mock Server sang API thật của Backend.
 - Xử lý các mã lỗi đồng bộ (HTTP 4xx, 5xx) và thiết lập hệ thống thông báo (Toast/Alert) phản hồi kết quả đăng ký cho sinh viên.
 - Tối ưu hóa bundle size và lazy loading cho các trang nặng.
-
-### Việc chưa làm trong scope hiện tại
-- Chưa chỉnh `.env` và không ghi ra nội dung `.env`.
-- Chưa tích hợp API thật.
-- Chưa dựng mock server.
-- Chưa triển khai đăng ký tín chỉ thật, table/filter admin thật hoặc camera thật.
