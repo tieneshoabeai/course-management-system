@@ -5,6 +5,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { queryClient } from '../configs/queryClient';
 import { muiTheme } from '../configs/theme';
 import { DashboardPage } from './pages/private/dashboard/page';
+import { StudentCoursesPage } from './pages/private/student/courses/page';
 import { LoginPage } from './pages/public/auth/login/page';
 import { ProtectedRoute } from './ProtectedRoute';
 import { PublicOnlyRoute } from './PublicOnlyRoute';
@@ -27,6 +28,7 @@ export function App() {
               <Route element={<ProtectedRoute />}>
                 <Route element={<AppLayout />}>
                   <Route path={ROUTES.dashboard} element={<DashboardPage />} />
+                  <Route path={ROUTES.studentCourses} element={<StudentCoursesPage />} />
                 </Route>
               </Route>
               <Route path="*" element={<Navigate to={ROUTES.dashboard} replace />} />
